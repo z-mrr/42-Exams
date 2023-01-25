@@ -6,23 +6,28 @@ va_list	ap;
 
 void	ft_putnbr(long long n, int base)
 {
-	if (n < 0){
+	char	*radix = "0123456789abcdef";
+	int		tab[21], i = 0;
+
+	if (n < 0)
+	{
 		n = -n;
 		write(1, "-", 1);
 		len++;
 	}
-	if (!n){
+	if (!n)
+	{
 		write(1, "0", 1);
 		len++;
 	}
-	int	tab[21], i = 0;
-	while (n){
+	while (n)
+	{
 		tab[i]=n % base;
 		n /= base;
 		i++;
 	}
-	char	*radix = "0123456789abcdef";
-	while (i){
+	while (i)
+	{
 		i--;
 		write(1, &radix[tab[i]], 1);
 		len++;
@@ -31,26 +36,35 @@ void	ft_putnbr(long long n, int base)
 
 void	ft_conv(char spec)
 {
-	if(spec == '%'){
+	char			*s;
+	int				d;
+	unsigned int	x;
+
+	if(spec == '%')
+	{
 		write(1, "%", 1);
 		len++;
 	}
-	else if (spec == 's'){
-		char	*s = va_arg(ap, char *);
+	else if (spec == 's')
+	{
+		s = va_arg(ap, char *);
 		if (!s)
 			s = "(null)";
-		while (*s){
+		while (*s)
+		{
 			write(1,s,1);
 			len++;
 			s++;
 		}
 	}
-	else if (spec == 'd'){
-		int	d = va_arg(ap, int);
+	else if (spec == 'd')
+	{
+		d = va_arg(ap, int);
 		ft_putnbr(d, 10);
 	}
-	else if (spec == 'x'){
-		unsigned int	x = va_arg(ap, unsigned int);
+	else if (spec == 'x')
+	{
+		x = va_arg(ap, unsigned int);
 		ft_putnbr(x, 16);
 	}
 }
@@ -60,12 +74,15 @@ int	ft_printf(const char *format, ...)
 	len = 0;
 	va_start(ap, format);
 
-	while(*format){
-		if (*format == '%'){
+	while(*format)
+	{
+		if (*format == '%')
+		{
 			format++;
 			ft_conv(*format);
 		}
-		else{
+		else
+		{
 			write(1, format, 1);
 			len++;
 		}

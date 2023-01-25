@@ -8,7 +8,8 @@ int	ft_pos(char *s)
 {
 	int	i = 1;
 
-	while (s[i - 1]){
+	while (s[i - 1])
+	{
 		if(s[i - 1] == '\n')
 			return i;
 		i++;
@@ -27,10 +28,11 @@ int	ft_len(char *s)
 
 char	*ft_sub(char *s, int start, int len)
 {
-	if (!s || len < 1 || start >= ft_len(s))
-		return 0;
 	char	*str = malloc(sizeof(char) * (len + 1));
 	int		i = -1;
+
+	if (!s || len < 1 || start >= ft_len(s))
+		return 0;
 	while (++i < len)
 		str[i] = s[i + start];
 	str[i] = '\0';
@@ -39,10 +41,11 @@ char	*ft_sub(char *s, int start, int len)
 
 char	*ft_join(char *s1, char *s2)
 {
-	if (!s1 || !s2)
-		return 0;
 	int		i = -1, j = -1;
 	char	*s = malloc(sizeof(char) * (ft_len(s1) + 1 + ft_len(s2)));
+
+	if (!s1 || !s2)
+		return 0;
 	while (s1[++i])
 		s[i] = s1[i];
 	while (s2[++j])
@@ -54,20 +57,25 @@ char	*ft_join(char *s1, char *s2)
 char	*get_next_line(int fd)
 {
 	static char	*s;
-	char		*buf = malloc((BUFFER_SIZE + 1));
+	char		*ret, *t, *buf = malloc((BUFFER_SIZE + 1));
+	int			r;
 
-	if (!buf || fd < 0 || BUFFER_SIZE < 1 || read(fd, buf, 0) < 0){
+	if (!buf || fd < 0 || BUFFER_SIZE < 1 || read(fd, buf, 0) < 0)
+	{
 		free(buf);
 		return 0;
 	}
-	if (!s || !ft_pos(s)){
-		int	r = read(fd, buf, BUFFER_SIZE);
-		while (r){
+	if (!s || !ft_pos(s))
+	{
+		r = read(fd, buf, BUFFER_SIZE);
+		while (r)
+		{
 			buf[r]='\0';
 			if (!s)
 				s = ft_sub(buf, 0, r);
-			else{
-				char	*t = s;
+			else
+			{
+				t = s;
 				s = ft_join(s, buf);
 				free (t);
 			}
@@ -79,14 +87,15 @@ char	*get_next_line(int fd)
 	free(buf);
 	if (!s)
 		return 0;
-	if (!ft_pos(s)){
-		char	*ret = ft_sub(s, 0, ft_len(s));
+	if (!ft_pos(s))
+	{
+		ret = ft_sub(s, 0, ft_len(s));
 		free(s);
 		s = 0;
 		return ret;
 	}
-	char	*ret = ft_sub(s, 0, ft_pos(s));
-	char	*t = s;
+	ret = ft_sub(s, 0, ft_pos(s));
+	t = s;
 	if (ft_len(s) == ft_pos(s))
 		s = 0;
 	else

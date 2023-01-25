@@ -27,12 +27,14 @@ int	exec(char **av, int i, char **envp)
 		if (pipe(fd) == -1)
 			return perr("error: fatal\n"), 1;
 	pid = fork();
-	if (pid == -1){
+	if (pid == -1)
+	{
 		if (p)
 			close(fd[0]), close(fd[1]);
 		return perr("error: fatal\n"), 1;
 	}
-	else if (!pid){
+	else if (!pid)
+	{
 		if (p)
 			if (dup2(fd[1], 1) == -1 || close(fd[0]) == -1 || close(fd[1]) == -1)
 				perr("error: fatal\n"), exit (1);
@@ -43,7 +45,8 @@ int	exec(char **av, int i, char **envp)
 	if (p)
 		if (dup2(fd[0], 0) == -1 || close(fd[0]) == -1 || close(fd[1]) == -1)
 				return perr("error: fatal\n"), 1;
-	if (!p){
+	if (!p)
+	{
 		waitpid(pid, &status, 0);
 		while (waitpid(-1, 0, 0) != -1)
 			continue;
@@ -56,7 +59,8 @@ int	main(int ac, char **av, char **envp)
 	int	i = 0, status = 0;
 
 	(void)ac;
-	while(av[i] && av[i + 1]){
+	while(av[i] && av[i + 1])
+	{
 		av = &av[i + 1];
 		i = 0;
 		while(av[i] && strcmp(av[i], "|") && strcmp(av[i], ";"))
