@@ -1,0 +1,12 @@
+{
+	"makefile.extensionOutputFolder": "./.vscode",
+	"files.associations": {
+		"*.tcc": "c",
+		"string": "c",
+		"string_view": "c",
+		"sstream": "c",
+		"fstream": "c",
+		"stdarg.h": "c",
+		"unistd.h": "c"
+	}
+}
