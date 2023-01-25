@@ -1,6 +1,0 @@
-make --dry-run --always-make --keep-going --print-directory
-make: Entering directory '/home/split/42/_exam03'
-gcc -Wall -Wextra -Werror -c ft_printf.c -o ft_printf.o
-ar rcs libftprintf.a ft_printf.o
-make: Leaving directory '/home/split/42/_exam03'
- 
